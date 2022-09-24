@@ -1,24 +1,24 @@
-import request from "@/utils/request";
+import request from '@/utils/request'
 
-export function login(data) {
+// 登录
+export function postlogin(data) {
   return request({
-    url: "/vue-admin-template/user/login",
-    method: "post",
+    url: '/sys/login',
+    method: 'POST',
     data
-  });
+  })
 }
-
-export function getInfo(token) {
+// 用户基本资料
+export function postusermessage() {
   return request({
-    url: "/vue-admin-template/user/info",
-    method: "get",
-    params: { token }
-  });
+    url: '/sys/profile',
+    method: 'POST'
+  })
 }
 
 export function logout() {
   return request({
-    url: "/vue-admin-template/user/logout",
-    method: "post"
-  });
+    url: '/vue-admin-template/user/logout',
+    method: 'post'
+  })
 }

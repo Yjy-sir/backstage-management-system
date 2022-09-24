@@ -29,6 +29,7 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  // devServer 本地服务器
   devServer: {
     port: port,
     open: true,
@@ -36,6 +37,14 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // 配置项
+    proxy: {
+      '/api': {
+        target: 'http://ihrm.itheima.net/',
+        // 是否跨域
+        changeOrigin: true
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

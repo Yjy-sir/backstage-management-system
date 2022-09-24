@@ -14,11 +14,11 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-    parserOptions: {
-      parser: "babel-eslint",
-    },
-    "no-console": 0,
-    "no-debugger": 0,
+    // parserOptions: {
+    //   parser: "babel-eslint",
+    // },
+    // "no-console": 0,
+    // "no-debugger": 0,
     "vue/max-attributes-per-line": [
       2,
       {

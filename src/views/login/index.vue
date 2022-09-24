@@ -54,8 +54,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-        >登录</el-button
-      >
+      >登录</el-button>
 
       <div class="tips">
         <span style="margin-right: 20px">mobile: 13800000002</span>
@@ -66,84 +65,86 @@
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
+// import { validUsername } from '@/utils/validate'
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       // console.log(value);
       if (/^[1][3,4,5,7,8]\d{9}$/.test(value)) {
-        callback();
+        callback()
       }
-      callback(new Error("手机号格式有误，请输入正确的手机号"));
-    };
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error("The password can not be less than 6 digits"));
-      } else {
-        callback();
-      }
-    };
+      callback(new Error('手机号格式有误，请输入正确的手机号'))
+    }
+    // const validatePassword = (rule, value, callback) => {
+    //   if (value.length < 6) {
+    //     callback(new Error('The password can not be less than 6 digits'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       loginForm: {
-        mobile: "13800000002",
-        password: "123456",
+        mobile: '13800000002', password: '123456'
       },
       loginRules: {
         mobile: [
-          { required: true, trigger: "blur", message: "请输入手机号" },
+          { required: true, trigger: 'blur', message: '请输入手机号' },
           {
             validator: validateUsername,
-            trigger: "blur",
-          },
+            trigger: 'blur'
+          }
         ],
         password: [
           {
             required: true,
-            trigger: "blur",
-            message: "请输入密码",
+            trigger: 'blur',
+            message: '请输入密码'
           },
           {
             min: 6,
             max: 12,
-            trigger: "blur",
-            message: "密码格式有误",
-          },
-        ],
+            trigger: 'blur',
+            message: '密码格式有误'
+          }
+        ]
       },
       loading: false,
-      passwordType: "password",
-      redirect: undefined,
-    };
+      passwordType: 'password',
+      redirect: undefined
+    }
   },
   watch: {
     $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect;
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
       } else {
-        this.passwordType = "password";
+        this.passwordType = 'password'
       }
       this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
+        this.$refs.password.focus()
+      })
     },
     handleLogin() {
+      this.loading = true
       this.$refs.loginForm.validate((pass, nopass) => {
-        if(pass) {
-          console.log(111);
-        } else {
-          return nopass
-        }
-      }) 
+        if (!pass) return
+        // loginForm  传到Vuex下面的actions 用来发起请求
+        this.$store.dispatch('user/uprequse', this.loginForm)
+          .then(() => {
+            this.$router.push('/')
+            this.loading = false
+          })
+      })
       // this.$refs.loginForm.validate((valid) => {
       //   if (valid) {
       //     this.loading = true;
@@ -161,9 +162,9 @@ export default {
       //     return false;
       //   }
       // });
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss">
